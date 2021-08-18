@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 # 1. data
-datasets = pd.read_csv('../_data/winequality-white.csv', sep=';',
+datasets = pd.read_csv('./_data/winequality-white.csv', sep=';',
                        index_col=None, header=0 ) # (4898, 12)
 
 x = datasets.iloc[:,0:11] # (4898, 11)
