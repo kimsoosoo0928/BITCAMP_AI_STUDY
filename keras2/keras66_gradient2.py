@@ -7,7 +7,7 @@ gradient = lambda x: 2*x -4
 
 x0 = 10.0 # 초기값
 MaxIter = 20
-learning_rate = 0.3
+learning_rate = 0.25
 
 print("step\tx\tf(x)")
 print("{:02d}\t{:6.5f}\t{:6.5f}".format(0, x0, f(x0)))
