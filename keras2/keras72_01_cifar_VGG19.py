@@ -2,13 +2,13 @@ from tensorflow.keras.layers import Dense, Flatten, GlobalAveragePooling2D
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.applications import VGG16, VGG19
 from tensorflow.python.keras.applications import vgg16     # layer 깊이가 16, 19
-from tensorflow.keras.datasets import cifar10
+from tensorflow.keras.datasets import cifar100
 
 # 동결하고, 안하고 비교
 # FC를 모델로 하고, GlobalAveragepooling2D으로 하고
 
 # 1. 데이터
-(x_train,y_train), (x_test, y_test) = cifar10.load_data()
+(x_train,y_train), (x_test, y_test) = cifar100.load_data()
 # ic(x_train.shape, y_train.shape)   # (50000, 32, 32, 3), (50000, 1)
 # ic(x_test.shape, y_test.shape)     # (10000, 32, 32, 3), (10000, 1)
 
@@ -32,10 +32,11 @@ vgg19 = VGG19(weights='imagenet', include_top=False, input_shape=(32,32,3))   # 
 vgg19.trainable=False   # False: vgg훈련을 동결한다(True가 default)
 
 model = Sequential()
+
 # model.add(vgg19)
 # model.add(Flatten())
 # model.add(Dense(100))        # *layer 1 추가
-# model.add(Dense(10, activation='softmax'))         # *layer 2 추가
+# model.add(Dense(100, activation='softmax'))         # *layer 2 추가
 
 model.add(vgg19)
 model.add(GlobalAveragePooling2D())
@@ -43,9 +44,9 @@ model.add(Dense(2048, activation='relu'))
 model.add(Dense(1024, activation='relu'))
 model.add(Dense(256, activation='relu'))
 model.add(Dense(128, activation='relu'))
-model.add(Dense(10, activation='softmax'))
+model.add(Dense(100, activation='softmax'))
 
-# model.trainable=False   # False: 전체 모델 훈련을 동결한다.(True가 default)
+model.trainable=False   # False: 전체 모델 훈련을 동결한다.(True가 default)
 
 model.summary()
 
@@ -91,3 +92,23 @@ print('accuracy :', results[1])
 # 걸린시간 : 55.336286783218384
 # category : 1.1168488264083862
 # accuracy : 0.6205999851226807
+
+# cifar 100, trainable = True, FC 
+# 걸린시간 : 77.14194703102112
+# category : 4.605197906494141
+# accuracy : 0.009999999776482582
+
+# cifar 100, trainable = True, GAP
+# 걸린시간 : 24.472861528396606
+# category : 11.365644454956055
+# accuracy : 0.007499999832361937
+
+# cifar 100, trainable = False, FC
+# 걸린시간 : 23.954719066619873
+# category : 52.542579650878906
+# accuracy : 0.011500000022351742
+
+# cifar 100, trainable = False, GAP
+# 걸린시간 : 24.55642008781433
+# category : 13.382279396057129
+# accuracy : 0.014100000262260437
