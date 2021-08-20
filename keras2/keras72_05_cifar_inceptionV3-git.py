@@ -39,6 +39,14 @@ model.add(Dense(10, activation='softmax'))         # *layer 2 추가
 
 # model.trainable=False   # False: 전체 모델 훈련을 동결한다.(True가 default)
 
+# model.add(resnet101)
+# model.add(GlobalAveragePooling2D())
+# model.add(Dense(2048, activation='relu'))
+# model.add(Dense(1024, activation='relu'))
+# model.add(Dense(256, activation='relu'))
+# model.add(Dense(128, activation='relu'))
+# model.add(Dense(100, activation='softmax'))
+
 model.summary()
 
 print(len(model.weights))               # 26 -> 30(layer 2개 추가 : 2(w+b)=4)

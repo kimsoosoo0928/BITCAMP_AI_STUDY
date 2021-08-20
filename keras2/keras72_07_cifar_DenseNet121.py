@@ -32,10 +32,17 @@ densenet121 = DenseNet121(weights='imagenet', include_top=False, input_shape=(32
 densenet121.trainable=True   # False: vgg훈련을 동결한다(True가 default)
 
 model = Sequential()
+# model.add(densenet121)
+# model.add(Flatten())
+# model.add(Dense(100))        # *layer 1 추가
+# model.add(Dense(10, activation='softmax'))         # *layer 2 추가
+
 model.add(densenet121)
-model.add(Flatten())
-model.add(Dense(100))        # *layer 1 추가
-model.add(Dense(10, activation='softmax'))         # *layer 2 추가
+model.add(GlobalAveragePooling2D())
+model.add(Dense(256, activation='relu'))
+model.add(Dense(128, activation='relu'))
+model.add(Dense(10, activation='softmax'))
+
 
 # model.trainable=False   # False: 전체 모델 훈련을 동결한다.(True가 default)
 
@@ -54,7 +61,7 @@ es = EarlyStopping(monitor='val_loss', mode='min', patience=5, verbose=1)
 
 import time
 start = time.time()
-hist = model.fit(x_train, y_train, epochs=3, batch_size=3000, validation_split=0.012)
+hist = model.fit(x_train, y_train, epochs=3, batch_size=500, validation_split=0.012)
 end_time = time.time() - start
 
 
@@ -77,7 +84,9 @@ print('acc : ', acc[2])
 
 '''
 cifar10, trainable= T , FC
-
+time :  143.09228444099426
+loss :  0.7564243078231812
+acc :  0.755829930305481
 
 cifar10, trainable= T , GAP
 
