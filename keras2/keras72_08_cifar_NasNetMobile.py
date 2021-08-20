@@ -54,12 +54,47 @@ es = EarlyStopping(monitor='val_loss', mode='min', patience=5, verbose=1)
 
 import time
 start = time.time()
-model.fit(x_train, y_train, epochs=5, batch_size=1000, validation_split=0.012)
-end = time.time() - start
+hist = model.fit(x_train, y_train, epochs=3, batch_size=3000, validation_split=0.012)
+end_time = time.time() - start
 
 
 # 4. 평가, 예측
+
+
+
 results = model.evaluate(x_test, y_test)
-print('걸린시간 :', end)
-print('category :', results[0])
-print('accuracy :', results[1])
+
+acc = hist.history['accuracy']
+
+loss = hist.history['loss']
+
+
+print("time : ", end_time)
+print('loss : ', loss[2])
+print('acc : ', acc[2])
+
+
+'''
+cifar10, trainable= T , FC
+
+
+cifar10, trainable= T , GAP
+
+
+cifar10, trainable= F , FC
+
+cifar10, trainable= F , GAP
+
+
+cifar100, trainable= T , FC
+
+
+cifar100, trainable= T , GAP
+
+
+cifar100, trainable= F , FC
+
+
+cifar100, trainable= F , GAP
+
+'''
