@@ -37,6 +37,13 @@ model.add(Flatten())
 model.add(Dense(100))        # *layer 1 추가
 model.add(Dense(10, activation='softmax'))         # *layer 2 추가
 
+# model.add(vgg19)
+# model.add(GlobalAveragePooling2D())
+# model.add(Dense(2048, activation='relu'))
+# model.add(Dense(1024, activation='relu'))
+# model.add(Dense(256, activation='relu'))
+# model.add(Dense(128, activation='relu'))
+# model.add(Dense(100, activation='softmax'))
 # model.trainable=False   # False: 전체 모델 훈련을 동결한다.(True가 default)
 
 model.summary()
@@ -54,7 +61,7 @@ es = EarlyStopping(monitor='val_loss', mode='min', patience=5, verbose=1)
 
 import time
 start = time.time()
-model.fit(x_train, y_train, epochs=5, batch_size=1000, validation_split=0.012)
+model.fit(x_train, y_train, epochs=3, batch_size=3000, validation_split=0.012)
 end = time.time() - start
 
 

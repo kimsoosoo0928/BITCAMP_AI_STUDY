@@ -33,18 +33,18 @@ vgg19.trainable=False   # False: vgg훈련을 동결한다(True가 default)
 
 model = Sequential()
 
-# model.add(vgg19)
-# model.add(Flatten())
-# model.add(Dense(100))        # *layer 1 추가
-# model.add(Dense(100, activation='softmax'))         # *layer 2 추가
-
 model.add(vgg19)
-model.add(GlobalAveragePooling2D())
-model.add(Dense(2048, activation='relu'))
-model.add(Dense(1024, activation='relu'))
-model.add(Dense(256, activation='relu'))
-model.add(Dense(128, activation='relu'))
-model.add(Dense(100, activation='softmax'))
+model.add(Flatten())
+model.add(Dense(100))        # *layer 1 추가
+model.add(Dense(100, activation='softmax'))         # *layer 2 추가
+
+# model.add(vgg19)
+# model.add(GlobalAveragePooling2D())
+# model.add(Dense(2048, activation='relu'))
+# model.add(Dense(1024, activation='relu'))
+# model.add(Dense(256, activation='relu'))
+# model.add(Dense(128, activation='relu'))
+# model.add(Dense(100, activation='softmax'))
 
 model.trainable=False   # False: 전체 모델 훈련을 동결한다.(True가 default)
 
